@@ -1,7 +1,7 @@
 # CalorieTracker Pro - Your Personal Nutrition Assistant
 
 Description:
-CalorieTracker Pro is a user-friendly web application designed to help users monitor their daily caloric intake and maintain a healthy lifestyle. This intuitive platform allows users to easily search, track, and analyze the nutritional content of their meals with precision and convenience.
+CalorieTracker is a user-friendly web application designed to help users monitor their daily caloric intake and maintain a healthy lifestyle. This intuitive platform allows users to easily search, track, and analyse the nutritional content of their meals with precision and convenience.
 
 Key Features:
 
@@ -61,7 +61,7 @@ Benefits:
 
 Easy and intuitive food tracking
 Accurate nutritional information
-Personalized user experience
+Personalised user experience
 Secure data storage
 Quick access to favorite foods
 Historical data analysis

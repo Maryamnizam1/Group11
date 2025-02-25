@@ -1,18 +1,16 @@
-const Users = require("../user.models");
+//@degas123
+const Users = require("../Models/Users.Models");
 const Joi = require("joi");
 const password = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\%\^\&\*\(\)\-\+\!]).{4,20}$");
-const charicters = new RegExp("^[a-zA-Z]+$")
 
 
 // creates the users account. auther @James 
 const create_account = (req, res) => {
 
     const schema = Joi.object({
-        first_name: Joi.string().min(1).alphanum().pattern(charicters).required(),
-        last_name: Joi.string().min(1).alphanum().pattern(charicters).required(),
+        username: Joi.string().min(4).required(),
         email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
         password: Joi.string().regex(password).required()
-
     })
     const { error } = schema.validate(req.body);
 
@@ -31,4 +29,27 @@ const create_account = (req, res) => {
         }
         return res.status(201).send(user);
     })
+}
+
+const login = (req, res)=>{
+    const schema = Joi.object({
+        // what are we using for the login detales
+        email: Joi.string().required(),
+        password: Joi.string().required()
+    })
+    const {err} = schema.validate(req.body);
+    if (err) return res.status(400).send({ "error message is ": err.details[0].message})
+    // adding modules now
+}
+
+
+
+
+
+
+
+
+
+module.exports={
+    create_account: create_account,
 }
