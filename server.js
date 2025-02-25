@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const app = express();
+// server port
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -14,10 +15,23 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 // Test route
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API is working!' });
 });
+
+
+// backend serves
+require('./Group11-main/Routes/User.Routes')(app);
+
+
+
+
+
+
+
+
 
 // Calories API route
 app.get('/api/calories', async (req, res) => {
