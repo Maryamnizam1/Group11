@@ -17,36 +17,30 @@ const create_account = (req, res) => {
     if (error) return res.status(400).send(
         { "error_message": error.details[0].message }
     );
+    let users = Object.assign({}, req.body);
       Users.create_account(users, (err, user) => {
         if (err) {
             if (err.errno == 19) {
-                // sqlite error for the duplication of a email adderss.(primery key)
                 return res.status(400).send({ "error_message": `Email '${users.email}' already has an account.` });
             }
             else {
-                return res.sendStatus(500);
+                return res.status(500).send(err);
             }
         }
         return res.status(201).send(user);
     })
 }
 
-const login = (req, res)=>{
-    const schema = Joi.object({
-        // what are we using for the login detales
-        email: Joi.string().required(),
-        password: Joi.string().required()
-    })
-    const {err} = schema.validate(req.body);
-    if (err) return res.status(400).send({ "error message is ": err.details[0].message})
-    // adding modules now
-}
-
-
-
-
-
-
+// const login = (req, res)=>{
+//     const schema = Joi.object({
+//         // what are we using for the login detales
+//         email: Joi.string().required(),
+//         password: Joi.string().required()
+//     })
+//     const {err} = schema.validate(req.body);
+//     if (err) return res.status(400).send({ "error message is ": err.details[0].message})
+//     // adding modules now
+// }
 
 
 
