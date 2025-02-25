@@ -1,5 +1,5 @@
 //author @james
-const Users = require("../Models/Users.Models");
+const Users = require("../Group11-main/Models/Users.Models");
 const loggedIn =  function (req , res, next)
 {
   let XAuth = req.get("X-Authorization");
