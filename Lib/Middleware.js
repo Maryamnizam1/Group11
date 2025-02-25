@@ -12,5 +12,5 @@ const loggedIn =  function (req , res, next)
 };
 
 module.exports = {
-isAuthenticated: isAuthenticated,
+loggedIn: loggedIn,
 };
