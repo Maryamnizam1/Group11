@@ -1,4 +1,5 @@
 //@degas123
+const { query } = require("express");
 const database = require("../../database");
 const crypto = require("crypto");
 
@@ -47,14 +48,14 @@ const setLoginToken = (id, done) => {
   let token = crypto.randomBytes(16).toString("hex");
   const query = "UPDATE users SET loginToken=? WHERE id=?";
 
-  db.run(query, [token, id], (err) => {
+  database.run(query, [token, id], (err) => {
     return done(err, token);
   });
 };
 
 const getLoginToken = (id, done) => {
   const query = "SELECT loginToken FROM users WHERE id=?";
-  db.get(query, [id], function (err, row) {
+  database.get(query, [id], function (err, row) {
     if (row && row.loginToken) {
       return done(null, row.loginToken);
     } else {
@@ -63,9 +64,27 @@ const getLoginToken = (id, done) => {
   });
 };
 
+const removeLoginToken = (token, done) => {
+  const query = "UPDATE users Set loginToken=null WHERE loginToken=? ";
+  database.run(query, [token], (err) => {
+    return done(err);
+  });
+};
+
+const getId = (token, done) => {
+  const sql = "SELECT id FROM users WHERE loginToken=?";
+  db.get(sql, [token], (err, row) => {
+    if (err) return done(err);
+    if (row) return done(null, row.id);
+    return done(null, null);
+  });
+};
+
 module.exports = {
   create_account: create_account,
   signedUp: signedUp,
   setLoginToken: setLoginToken,
   getLoginToken: getLoginToken,
+  removeLoginToken: removeLoginToken,
+  getId: getId,
 };

@@ -23,11 +23,9 @@ const create_account = (req, res) => {
   Users.create_account(users, (err, user) => {
     if (err) {
       if (err.errno == 19) {
-        return res
-          .status(400)
-          .send({
-            error_message: `Email '${users.email}' already has an account.`,
-          });
+        return res.status(400).send({
+          error_message: `Email '${users.email}' already has an account.`,
+        });
       } else {
         return res.status(500).send(err);
       }
@@ -68,7 +66,24 @@ const login = (req, res) => {
   });
 };
 
+const logout = (req, res) => {
+  let token = req.get("Authorization");
+  Users.getId(token, function (err, id) {
+    if (!id) {
+      return res.sendStatus(401);
+    }
+    if (err) return res.sendStatus(500);
+    Users.removeLoginToken(token, (err) => {
+      if (err) {
+        return res.sendStatus(500);
+      } else {
+        return res.sendStatus(200);
+      }
+    });
+  });
+};
 module.exports = {
   create_account: create_account,
-  login:login,
+  login: login,
+  logout: logout,
 };
