@@ -3,13 +3,12 @@
   "name": "group-11",
   "version": "1.0.0",
   "description": " Group 11 -Calories Finder",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "nodemon server.js",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "server": "nodemon server.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "@types/node": "20.11.25",
